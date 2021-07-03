@@ -8,6 +8,7 @@ const DotEnv = require('dotenv-webpack');
 module.exports = {
   entry: './src/index.js', // Nuestro archivo de entrada
   output: {
+    publicPath: '/',
     path: path.resolve(__dirname, 'dist'), // La carpeta donde se ubicara el dir
     filename: '[name].[contenthash].js', // donde se empacaran nuestros js
     assetModuleFilename: 'assets/images/[hash][ext][query]', // Con esta propiedad generamos el archivo de salida de las imagenes, para que esten en nuestro directorio dir

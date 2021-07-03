@@ -3,11 +3,12 @@ const HTMLWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const DotEnv = require('dotenv-webpack');
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
 /** @type {import('webpack').Configuration} */
 module.exports = {
   mode: 'development', // Le decimos a webpack que este es empaquetado para desarrollo
-  watch:true, // Se mantendra escuchando nuestros cambios
+  devtool: 'source-map', // Nos ayuda a detectar errores en el codgio desde el navegador apesar de que nuestro codigo ya este transpilado
   entry: './src/index.js', // Nuestro archivo de entrada
   output: {
     path: path.resolve(__dirname, 'dist'), // La carpeta donde se ubicara el dir
@@ -78,5 +79,13 @@ module.exports = {
     new DotEnv({
       path: path.resolve(__dirname, '.env'),
     }),
+    new BundleAnalyzerPlugin()
   ],
+  devServer: {
+    contentBase: path.join(__dirname, 'dist'),
+    compress: true,
+    historyApiFallback: true, // Para mantener un registro del navegador y podamos navegar entre rutas
+    port: 3005,
+    open: true,
+  },
 };
